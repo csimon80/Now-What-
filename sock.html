@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smaki - Maki - Mooki</title>
+  <link rel="stylesheet" type="text/css" href="style.css"/>  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+  </script>
+</head>
+<body>
+<script src="/socket.io/socket.io.js"></script>
+<KBD><p>Message From Server:</p></KBD>
+<p><KBD id="mfs">    Loading ... </KBD></p>
+<input type="text" placeholder="Enter Search Sentence" id="sentence"><br>
+
+	<script>
+    var socket = io.connect('http://localhost',{'reconnect': true, 'reconnection delay': 500});
+
+  	socket.once('firstMsg', function (data) {
+  		$('#mfs').html('<li>'+ data + '</li>');
+    	});
+    	$('#sentence').keypress(function (event) {
+    		if(event.which == 13) {
+          event.preventDefault();
+
+        	$('#test').html('');
+
+        	var str = $('#sentence').val().toString();
+
+          socket.emit('twitS', str);
+          socket.once('twitFrame' , function (frame) {
+
+            frame.forEach(function (signal){
+              $('.y#test').append('<tr class="sent" id="'+signal+'"></tr>')
+            });
+
+            frame.forEach(function (signal){
+            
+              socket.on(signal, function (data){
+
+                if ($('#respSent'+signal).length == 0)
+                {
+                  $('.sent#'+signal)
+                  .append('<th class="respSent" id="respSent'+signal+'" align="left"><KBD>'+data+'</KBD><th>');
+                }
+              });
+            })
+          });
+        }
+    });
+  </script>
+  <br>
+  <div>
+    <p>
+      <KBD>Twit Sub - Space:</KBD>
+    </p>
+    <table>
+      <tbody class="y" id="test">
+        
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
