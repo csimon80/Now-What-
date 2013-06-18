@@ -1,0 +1,36 @@
+body
+{
+background-color:#ffffff;
+}
+
+p,#mfs,#twitStuff ,KBD
+{
+font:15px;
+color: black;
+font-weight:bold;
+}
+
+div
+{
+background-color:#a8a3a3;
+margin-left: 30px;
+width:90%;
+}
+
+#sentence
+{
+margin-left: 30px;
+width:90%;
+}
+
+.respSent
+{
+color: #4d4747;
+font:15px arial,sans-serif;
+}
+
+.queryWord
+{
+color: black;
+font:15px arial,sans-serif;
+}
